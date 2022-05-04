@@ -30,6 +30,7 @@
             bottom: auto;
             left: auto;
             transform: translate(50%, -50%);
+            pointer-events: none;
         }
         video {
             display: block;
@@ -41,6 +42,7 @@
             bottom: 0;
             left: 0;
             z-index: -1;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -50,17 +52,17 @@
     <script type="text/JavaScript">
         let countdown = 1000 * 60 * 10; // Ten minutes.
         const h1 = document.querySelector('h1');
+        const counterInterval = setInterval(count, 1000);
+        count(); // Initialize.
         function count() {
             if (countdown >= 0) {
                 const seconds = parseInt((countdown % 60000) / 1000),
-                      minutes = parseInt(countdown / 60000);
-                const string = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                      minutes = parseInt(countdown / 60000),
+                      string  = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
                 document.title = h1.textContent = string;
                 countdown -= 1000;
-            }
+            } else clearInterval(counterInterval);
         }
-        count(); // Initialize.
-        setInterval(count, 1000);
     </script>
 </body>
 </html>
